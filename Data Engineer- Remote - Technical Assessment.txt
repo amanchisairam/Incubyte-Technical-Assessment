@@ -1,0 +1,73 @@
+Technical Assessment: Deliverables
+-------------------------------------
+1. Create table queries
+
+CREATE TABLE Table_India (
+    customer_name VARCHAR(255),
+    customer_id VARCHAR(18),
+    open_date DATE,
+    last_consulted_date DATE,
+    vaccination_id CHAR(5),
+    doctor_name VARCHAR(255),
+    state CHAR(5),
+    country CHAR(5),
+    post_code INT,
+    dob DATE,
+    is_active CHAR(1),
+    age INT GENERATED ALWAYS AS (YEAR(CURDATE()) - YEAR(dob)) VIRTUAL,
+    days_since_last_consulted INT GENERATED ALWAYS AS (DATEDIFF(CURDATE(), last_consulted_date)) VIRTUAL,
+    PRIMARY KEY (customer_id)
+);
+
+
+2. Create the above tables with additional derived columns: age and days since last consulted >30
+
+CREATE TABLE Table_India (
+    customer_name VARCHAR(255),
+    customer_id VARCHAR(18),
+    open_date DATE,
+    last_consulted_date DATE,
+    vaccination_id CHAR(5),
+    doctor_name VARCHAR(255),
+    state CHAR(5),
+    country CHAR(5),
+    post_code INT,
+    dob DATE,
+    is_active CHAR(1),
+    
+    -- Derived columns
+    age INT GENERATED ALWAYS AS (YEAR(CURDATE()) - YEAR(dob)) VIRTUAL,
+    days_since_last_consulted INT GENERATED ALWAYS AS (DATEDIFF(CURDATE(), last_consulted_date)) VIRTUAL,
+    flag_days_gt_30 CHAR(1) GENERATED ALWAYS AS (CASE WHEN DATEDIFF(CURDATE(), last_consulted_date) > 30 THEN 'Y' ELSE 'N' END) VIRTUAL,
+    
+    PRIMARY KEY (customer_id)
+);
+
+3. Create necessary validations.
+
+CREATE TABLE Table_India (
+    customer_name VARCHAR(255) NOT NULL,  -- Mandatory
+    customer_id VARCHAR(18) NOT NULL,     -- Mandatory
+    open_date DATE NOT NULL,              -- Mandatory
+    last_consulted_date DATE,
+    vaccination_id CHAR(5),
+    doctor_name VARCHAR(255),
+    state CHAR(5),
+    country CHAR(5),
+    post_code INT,
+    dob DATE,
+    is_active CHAR(1) NOT NULL,           -- Mandatory
+
+    -- Derived columns
+    age INT GENERATED ALWAYS AS (YEAR(CURDATE()) - YEAR(dob)) VIRTUAL,
+    days_since_last_consulted INT GENERATED ALWAYS AS (DATEDIFF(CURDATE(), last_consulted_date)) VIRTUAL,
+    flag_days_gt_30 CHAR(1) GENERATED ALWAYS AS (CASE WHEN DATEDIFF(CURDATE(), last_consulted_date) > 30 THEN 'Y' ELSE 'N' END) VIRTUAL,
+    
+    PRIMARY KEY (customer_id)
+);
+
+
+4. If we move forward with an interview we would like to see the demonstration
+
+	Great! I'd be happy to help you prepare for the demonstration. Could you let me know what specific technologies, tools, or processes you'd
+ like to showcase during the interview? This will help me assist you with creating an effective demonstration plan.
